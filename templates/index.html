@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Feed</title>
+    <style>
+        body {
+            background-color: #008B8B;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .video-container {
+            border: 8px solid black;
+            border-radius: 15px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 1280px;
+            height: 1024px;
+        }
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 10px;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Live Video Feed</h1>
+    <h1>Face Match: <span id="percentage">{{ max_val * 200 | round }}</span>%</h1>
+    <div class="video-container">
+        <img src="{{ url_for('video_feed') }}" id="video" alt="Video Feed">
+    </div>
+    <div>
+        <h2>Copyright SPSE Jecna 2025</h2>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="school logo">
+    </div>
+
+    <script>
+    // Function to update the match percentage dynamically
+    function updateMatchPercentage() {
+        fetch('/max_val') // Call the API to get the latest max_val
+            .then(response => response.json())
+            .then(data => {
+                let matchValue = data.max_val;
+
+                // Crop values below 0 and above 0.5
+                if (matchValue < 0) {
+                    matchValue = 0;
+                } else if (matchValue > 0.5) {
+                    matchValue = 0.5;
+                }
+
+                // Convert to percentage
+                const percentage = Math.round(matchValue * 200);
+                document.getElementById('percentage').textContent = percentage;
+            })
+            .catch(err => console.error('Error fetching match value:', err));
+    }
+
+    // Polling the server every second for updates
+    setInterval(updateMatchPercentage, 1000);
+</script>
+
+</body>
+</html>
