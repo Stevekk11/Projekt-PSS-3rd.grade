@@ -206,7 +206,7 @@ def max_val():
 if __name__ == '__main__':
     setup_gpio()
     try:
-        app.run(host='0.0.0.0', port=8085)
+        app.run(host='0.0.0.0', port=8086)
     finally:
         import RPi.GPIO as GPIO
         GPIO.cleanup()
