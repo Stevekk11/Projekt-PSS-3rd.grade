@@ -11,11 +11,11 @@ from buzzer import activate_siren, deactivate_siren, setup_gpio
 import subprocess
 
 # --- CONFIGURATION ---
-KNOWN_FACES_DIR = "known_faces/Stevek"
+BASE_DIR = "/home/stevek/project"
+KNOWN_FACES_DIR = BASE_DIR+"/Stevek/known_faces/Stevek"
 HAAR_CASCADE_PATH = "/usr/lib/python3/dist-packages/data/haarcascade_frontalface_default.xml"
 RECOGNITION_THRESHOLD = 120
 max_val_global = 0
-
 # --- LOAD FACE DETECTOR ---
 face_cascade = cv2.CascadeClassifier(HAAR_CASCADE_PATH)
 
@@ -139,7 +139,7 @@ def capture_frame():
             if not bulb_activated:
                 print(f"Recognized {best_match[0]}. Turning on bulb...")
                 bulb_activated = True
-                subprocess.Popen(["python3", "project/Stevek/BulbControl.py"])
+                subprocess.Popen(["python3", BASE_DIR+"/Stevek/BulbControl.py"])
         else:
             max_val_global = 0  # No recognized face
             deactivate_siren()

@@ -10,7 +10,7 @@ from buzzer import activate_siren, deactivate_siren, setup_gpio
 import asyncio
 import cv2
 import requests
-
+BASE_DIR = "/home/stevek/project"
 # Initialize Haar Cascade
 haar_cascade_path = "/usr/lib/python3/dist-packages/data/haarcascade_frontalface_default.xml"
 face_cascade = cv2.CascadeClassifier(haar_cascade_path)
@@ -54,7 +54,7 @@ def capture_frame():
                 print("Face detected. Turning on the bulb...")
                 # Use Popen to execute the bulb activation command asynchronously
                 bulb_activated = True  # Mark the bulb as activated
-                subprocess.Popen(["python3", "project/Stevek/BulbControl.py"])
+                subprocess.Popen(["python3", BASE_DIR +"/Stevek/BulbControl.py"])
                 max_val_global = 1
         else:  # No faces detected
             deactivate_siren()

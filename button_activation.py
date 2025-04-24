@@ -9,7 +9,7 @@ from buzzer import activate_siren, deactivate_siren, setup_gpio
 # --- Configuration ---
 BUTTON_PIN = 21
 LONG_PRESS_SEC = 2.0
-LOG_FILE = '/var/log/button_controller.log'
+LOG_FILE = '/home/stevek/button_controller.log'
 BASE_DIR = '/home/stevek/project'
 
 # --- Setup Logging ---
